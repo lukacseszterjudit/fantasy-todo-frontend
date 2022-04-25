@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RewardService from '../services/RewardService';
+import { Link } from 'react-router-dom';
 
 class ListRewardComponent extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class ListRewardComponent extends Component {
         return (
             <div>
                 <h2 className='text-center'>Reward List</h2>
+                <Link className="btn btn-primary" to="/add-reward">Add Reward</Link>
                 <div className="row">
                     <table className='table table-striped table-bordered'>
                         <thead>

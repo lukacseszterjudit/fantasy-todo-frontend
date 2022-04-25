@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TaskService from '../services/TaskService';
+import { Link } from 'react-router-dom';
 
 class ListTaskComponent extends Component {
     constructor(props) {
@@ -20,12 +21,14 @@ class ListTaskComponent extends Component {
         return (
             <div>
                 <h2 className='text-center'>Task List</h2>
+                <Link className="btn btn-primary" to="/add-task">Add Task</Link>
                 <div className="row">
                     <table className='table table-striped table-bordered'>
                         <thead>
                             <tr>
                                 <th>Task Title</th>
                                 <th>Task Description</th> 
+                                <th>Gold on Completion</th> 
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -37,6 +40,7 @@ class ListTaskComponent extends Component {
                                     <tr key = {task.id}>
                                         <td>{task.title}</td>
                                         <td>{task.description}</td>
+                                        <td>{task.goldOnCompletion}</td>
                                     </tr>
                                 )
                             }
