@@ -7,6 +7,11 @@ class RewardService {
     getRewards(){
         return axios.get(REWARD_API_BASE_URL);
     }
+
+    createReward(reward){
+        console.log(reward);
+        return axios.post(REWARD_API_BASE_URL, reward);
+    }
 }
 
 export default new RewardService()

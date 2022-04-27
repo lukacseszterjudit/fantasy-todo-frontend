@@ -1,55 +1,48 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskService from '../services/TaskService';
 import { Link } from 'react-router-dom';
 
-class ListTaskComponent extends Component {
-    constructor(props) {
-        super(props)
+function ListTaskComponent(props) {
+    const[tasks, setTasks] = useState([]);
 
-        this.state = {
-            tasks: []
-        }
-    }
-
-    componentDidMount(){
+    useEffect(() => {
         TaskService.getTasks().then((res) => {
-            this.setState({tasks: res.data})
+            setTasks(res.data);
         });
-    }
+    });
 
-    render() {
-        return (
-            <div>
-                <h2 className='text-center'>Task List</h2>
-                <Link className="btn btn-primary" to="/add-task">Add Task</Link>
-                <div className="row">
-                    <table className='table table-striped table-bordered'>
-                        <thead>
-                            <tr>
-                                <th>Task Title</th>
-                                <th>Task Description</th> 
-                                <th>Gold on Completion</th> 
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
+    return (
+        <div>
+            <h2 className='text-center'>Task List</h2>
+            <Link className="btn btn-primary" to="/add-task">Add Task</Link>
+            <div className="row">
+                <table className='table table-striped table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Task Title</th>
+                            <th>Task Description</th> 
+                            <th>Gold Earned on Completion</th> 
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
-                            {
-                                this.state.tasks.map(
-                                    task => 
-                                    <tr key = {task.id}>
-                                        <td>{task.title}</td>
-                                        <td>{task.description}</td>
-                                        <td>{task.goldOnCompletion}</td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                    <tbody>
+                        {
+                            tasks.map(
+                                task => 
+                                <tr key = {task.id}>
+                                    <td>{task.title}</td>
+                                    <td>{task.description}</td>
+                                    <td>{task.goldEarned}</td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
             </div>
-        );
-    }
+        </div>
+    );
+    
 }
 
 export default ListTaskComponent;
