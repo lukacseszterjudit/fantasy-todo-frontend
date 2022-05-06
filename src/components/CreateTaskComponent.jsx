@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import TaskService from '../services/TaskService';
-import {useState} from 'react';
-import { useHistory } from "react-router-dom";
+import {useState, useEffect} from 'react';
+import { useHistory, useParams } from "react-router-dom";
 
 function CreateTaskComponent(props){
-
+    const { id } = useParams();
     const[title, setTitle] = useState('');
     const[description, setDescription] = useState('');
     const[goldEarned, setGoldEarned] = useState(10);
@@ -16,9 +16,17 @@ function CreateTaskComponent(props){
             title: title, 
             description: description, 
             goldEarned: goldEarned};
-        TaskService.createTask(task).then(res =>(
-            history.push("/tasks")
-        ));    
+
+        if(id == -1){
+            TaskService.createTask(task).then(res =>(
+                history.push("/tasks")
+            ));  
+        }
+        else{
+            TaskService.updateTask(task, id).then(res => {
+                history.push("/tasks")
+            });
+        }    
     }
 
     const changeTitleHandler= (event)=>{
@@ -32,12 +40,24 @@ function CreateTaskComponent(props){
     const changeGoldEarnedHandler= (event)=>{
         setGoldEarned(event.target.value);
     }
+
+    useEffect(() => {
+        if(id != -1){
+            TaskService.getTaskById(id).then((res) => {
+                let task = res.data;
+                setTitle(task.title);
+                setDescription(task.description);
+                setGoldEarned(task.goldEarned);
+            });
+        }
+    }, []);
+    
         
     return (
         <div className='container'>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>
-                    <h3 className='text-center'>Add Task</h3>
+                    <h3 className='text-center'>{id == -1 ? 'Add' : 'Edit'} Task</h3>
                     <div className='card-body'>
                         <form>
                             <div className='form-group'>

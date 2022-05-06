@@ -6,22 +6,24 @@ function ListTaskComponent(props) {
     const[tasks, setTasks] = useState([]);
 
     useEffect(() => {
+        let isMounted = true;   
         TaskService.getTasks().then((res) => {
-            setTasks(res.data);
+            if (isMounted) setTasks(res.data);
         });
-    });
+        return () => { isMounted = false };
+    }, []);
 
     return (
         <div>
             <h2 className='text-center'>Task List</h2>
-            <Link className="btn btn-primary" to="/add-task">Add Task</Link>
+            <Link className="btn btn-primary" to="/add-task/-1">Add Task</Link>
             <div className="row">
                 <table className='table table-striped table-bordered'>
                     <thead>
                         <tr>
                             <th>Task Title</th>
                             <th>Task Description</th> 
-                            <th>Gold Earned on Completion</th> 
+                            <th>Reward</th> 
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -33,7 +35,10 @@ function ListTaskComponent(props) {
                                 <tr key = {task.id}>
                                     <td>{task.title}</td>
                                     <td>{task.description}</td>
-                                    <td>{task.goldEarned}</td>
+                                    <td>{task.goldEarned} gold</td>
+                                    <td>
+                                    <Link className="btn btn-info" to={'/add-task/' + task.id}>Edit</Link>
+                                    </td>
                                 </tr>
                             )
                         }

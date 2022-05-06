@@ -6,15 +6,17 @@ function ListRewardComponent(props) {
     const[rewards, setRewards] = useState([]);
 
     useEffect(() => {
+        let isMounted = true;   
         RewardService.getRewards().then((res) => {
-            setRewards(res.data);
+            if (isMounted) setRewards(res.data);
         });
-    });
+        return () => { isMounted = false };
+    }, []);
 
     return (
         <div>
-            <h2 className='text-center'>Reward List</h2>
-            <Link className="btn btn-primary" to="/add-reward">Add Reward</Link>
+            <h2 className='text-center'>Reward Shop</h2>
+            <Link className="btn btn-primary" to="/add-reward/-1">Add Reward</Link>
             <div className="row">
                 <table className='table table-striped table-bordered'>
                     <thead>
@@ -33,7 +35,10 @@ function ListRewardComponent(props) {
                                 <tr key = {reward.id}>
                                     <td>{reward.title}</td>
                                     <td>{reward.description}</td>
-                                    <td>{reward.price}</td>
+                                    <td>{reward.price} gold</td>
+                                    <td>
+                                    <Link className="btn btn-info" to={'/add-reward/' + reward.id}>Edit</Link>
+                                    </td>
                                 </tr>
                             )
                         }

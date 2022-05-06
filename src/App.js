@@ -12,17 +12,17 @@ function App() {
   return (
     <div>
         <div className='container'>
-          <HeaderComponent />
-              <BrowserRouter>
+            <BrowserRouter>
+                <HeaderComponent />
                 <Switch>
                   <Route exact path="/"><ListTaskComponent /></Route>
                   <Route path="/tasks"><ListTaskComponent /></Route>
                   <Route path="/rewards"><ListRewardComponent /></Route>
-                  <Route path="/add-task"><CreateTaskComponent /></Route>
-                  <Route path="/add-reward"><CreateRewardComponent /></Route>
+                  <Route path="/add-task/:id"><CreateTaskComponent /></Route>
+                  <Route path="/add-reward/:id"><CreateRewardComponent /></Route>
                 </Switch>
-              </BrowserRouter>
-          <FooterComponent />
+                <FooterComponent />
+            </BrowserRouter>
         </div>
     </div>
     

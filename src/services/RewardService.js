@@ -8,9 +8,20 @@ class RewardService {
         return axios.get(REWARD_API_BASE_URL);
     }
 
+    getRewardById(rewardId){
+        return axios.get(REWARD_API_BASE_URL + "/" + rewardId);
+    }
+
     createReward(reward){
-        console.log(reward);
         return axios.post(REWARD_API_BASE_URL, reward);
+    }
+
+    updateReward(reward, rewardId){
+        return axios.put(REWARD_API_BASE_URL + "/" + rewardId, reward);
+    }
+
+    deleteReward(rewardId){
+        return axios.delete(REWARD_API_BASE_URL + "/" + rewardId);
     }
 }
 
