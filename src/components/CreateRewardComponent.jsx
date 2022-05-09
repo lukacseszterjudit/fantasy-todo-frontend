@@ -91,11 +91,11 @@ function CreateRewardComponent(props) {
                                         event.preventDefault();
                                         }
                                     }}
-                                    type="number" 
+                                    type="text" 
                                     placeholder="Reward Price" 
                                     name='rewardPrice' 
                                     className='form-control' 
-                                    defaultValue={price} 
+                                    value={price} 
                                     onChange={changePriceHandler}
                                 />
                             </div>

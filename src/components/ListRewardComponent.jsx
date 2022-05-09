@@ -13,6 +13,13 @@ function ListRewardComponent(props) {
         return () => { isMounted = false };
     }, []);
 
+    function deleteReward(id){
+        RewardService.deleteReward(id).then(res=>{
+            const updatedRewards = rewards.filter((reward) => reward.id !== id);
+            setRewards(updatedRewards);
+        })
+    }
+
     return (
         <div>
             <h2 className='text-center'>Reward Shop</h2>
@@ -38,6 +45,7 @@ function ListRewardComponent(props) {
                                     <td>{reward.price} gold</td>
                                     <td>
                                     <Link className="btn btn-info" to={'/add-reward/' + reward.id}>Edit</Link>
+                                    <button className="btn btn-danger" onClick={()=>deleteReward(reward.id)}>Delete</button>
                                     </td>
                                 </tr>
                             )

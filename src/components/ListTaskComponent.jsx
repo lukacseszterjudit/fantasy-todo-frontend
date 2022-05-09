@@ -13,6 +13,13 @@ function ListTaskComponent(props) {
         return () => { isMounted = false };
     }, []);
 
+    function deleteTask(id){
+        TaskService.deleteTask(id).then(res=>{
+            const updatedTasks = tasks.filter((task) => task.id !== id);
+            setTasks(updatedTasks);
+        })
+    }
+
     return (
         <div>
             <h2 className='text-center'>Task List</h2>
@@ -38,6 +45,7 @@ function ListTaskComponent(props) {
                                     <td>{task.goldEarned} gold</td>
                                     <td>
                                     <Link className="btn btn-info" to={'/add-task/' + task.id}>Edit</Link>
+                                    <button className="btn btn-danger" onClick={()=>deleteTask(task.id)}>Delete</button>
                                     </td>
                                 </tr>
                             )

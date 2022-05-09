@@ -94,7 +94,7 @@ function CreateTaskComponent(props){
                                     placeholder='Gold Earned on Completion' 
                                     name='taskGoldEarned' 
                                     className='form-control' 
-                                    defaultValue={goldEarned} 
+                                    value={goldEarned} 
                                     onChange={changeGoldEarnedHandler}
                                 />
                             </div>
